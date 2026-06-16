@@ -29,37 +29,44 @@
 body { font-family: var(--font); background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; }
 svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
-/* Loading overlay */
+/* ── Setup Screen ── */
+#setup-screen {
+  display: none; position: fixed; inset: 0; background: var(--sidebar-bg);
+  align-items: center; justify-content: center; z-index: 9999;
+}
+.setup-box {
+  background: var(--surface); border-radius: var(--radius-lg); padding: 36px 40px;
+  width: 100%; max-width: 460px; box-shadow: var(--shadow-md);
+}
+.setup-logo { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; }
+.setup-logo-icon { width: 42px; height: 42px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #fff; letter-spacing: .5px; }
+.setup-logo h2 { font-size: 17px; font-weight: 700; }
+.setup-logo p { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.setup-section { margin-bottom: 20px; }
+.setup-section label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+.setup-section input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius); font-size: 14px; font-family: var(--font); outline: none; color: var(--text); transition: border-color .15s; }
+.setup-section input:focus { border-color: var(--primary); }
+.setup-hint { font-size: 12px; color: var(--text-muted); margin-top: 5px; }
+.setup-hint a { color: var(--primary); text-decoration: none; }
+.setup-hint a:hover { text-decoration: underline; }
+.setup-btn { width: 100%; padding: 11px; background: var(--primary); color: #fff; border: none; border-radius: var(--radius); font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font); margin-top: 8px; transition: background .15s; }
+.setup-btn:hover { background: var(--primary-dark); }
+.setup-btn:disabled { opacity: .6; cursor: not-allowed; }
+.setup-error { color: var(--danger); font-size: 13px; margin-top: 10px; display: none; }
+
+/* ── Loading overlay ── */
 #loading-overlay {
   position: fixed; inset: 0; background: var(--sidebar-bg);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  z-index: 9999; gap: 20px;
+  z-index: 9998; gap: 20px;
 }
-#loading-overlay .logo-big {
-  width: 56px; height: 56px; background: var(--primary); border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 800; font-size: 18px; color: #fff; letter-spacing: 1px;
-}
+.logo-big { width: 56px; height: 56px; background: var(--primary); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 18px; color: #fff; letter-spacing: 1px; }
 #loading-overlay p { color: var(--sidebar-text); font-size: 15px; }
-.spinner {
-  width: 36px; height: 36px; border: 3px solid rgba(255,255,255,.15);
-  border-top-color: var(--primary); border-radius: 50%; animation: spin .7s linear infinite;
-}
+.spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,.15); border-top-color: var(--primary); border-radius: 50%; animation: spin .7s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
-/* Error banner */
-#error-banner {
-  display: none; background: #fff3cd; border: 1px solid #ffc107; border-radius: var(--radius);
-  padding: 16px 20px; margin-bottom: 20px; color: #856404;
-}
-#error-banner strong { display: block; margin-bottom: 6px; font-size: 14px; }
-#error-banner code { display: block; font-size: 12px; background: rgba(0,0,0,.06); padding: 8px 10px; border-radius: 4px; margin: 8px 0; word-break: break-all; font-family: monospace; }
-#error-banner .err-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
-#error-banner button { padding: 6px 14px; border-radius: 6px; border: 1px solid currentColor; background: transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #856404; font-family: var(--font); }
-#error-banner button:hover { background: rgba(0,0,0,.07); }
-
+/* ── App ── */
 #app { display: flex; min-height: 100vh; }
-
 .sidebar { width: 240px; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
 .sidebar-logo { display: flex; align-items: center; gap: 12px; padding: 20px 20px 24px; border-bottom: 1px solid rgba(255,255,255,.07); }
 .logo-icon { width: 38px; height: 38px; background: var(--primary); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 12px; color: #fff; letter-spacing: .5px; }
@@ -75,7 +82,10 @@ svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width:
 .sync-dot.syncing { background: #c27803; animation: pulse 1s infinite; }
 .sync-dot.error { background: var(--danger); }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-.sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,.07); color: var(--sidebar-text); font-size: 12px; opacity: .6; }
+.sidebar-footer { padding: 12px 20px; border-top: 1px solid rgba(255,255,255,.07); color: var(--sidebar-text); font-size: 11px; opacity: .5; }
+.btn-config { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: var(--radius); color: var(--sidebar-text); background: transparent; border: none; cursor: pointer; font-size: 13px; font-family: var(--font); width: 100%; opacity: .6; transition: all .15s; }
+.btn-config:hover { background: rgba(255,255,255,.07); opacity: 1; }
+.btn-config svg { width: 15px; height: 15px; }
 
 .main { flex: 1; margin-left: 240px; padding: 32px; min-height: 100vh; }
 .page-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
@@ -154,7 +164,7 @@ form { padding: 20px 24px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
 label { font-size: 13px; font-weight: 500; color: var(--text-secondary); }
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"], input[type="password"], textarea {
   padding: 9px 12px; border: 1px solid var(--border); border-radius: var(--radius);
   font-size: 14px; color: var(--text); background: var(--surface);
   font-family: var(--font); outline: none; transition: border-color .15s;
@@ -166,6 +176,7 @@ textarea { resize: vertical; }
 .toast.show { opacity: 1; transform: translateY(0); }
 .toast.success { background: var(--success); }
 .toast.error { background: var(--danger); }
+
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -173,13 +184,47 @@ textarea { resize: vertical; }
 </head>
 <body>
 
-<!-- Loading -->
-<div id="loading-overlay">
-  <div class="logo-big">PRT</div>
-  <div class="spinner"></div>
-  <p id="loading-msg">Conectando ao SharePoint...</p>
+<!-- ── Setup Screen ── -->
+<div id="setup-screen" style="display:flex">
+  <div class="setup-box">
+    <div class="setup-logo">
+      <div class="setup-logo-icon">PRT</div>
+      <div>
+        <h2>Parana Trading</h2>
+        <p>Configuração inicial — Controle de Atividades</p>
+      </div>
+    </div>
+
+    <div class="setup-section">
+      <label>Usuário GitHub</label>
+      <input type="text" id="cfg-owner" placeholder="ex: ImportPRT" />
+    </div>
+    <div class="setup-section">
+      <label>Nome do repositório</label>
+      <input type="text" id="cfg-repo" placeholder="ex: controle-atividades-prt" value="controle-atividades-prt" />
+    </div>
+    <div class="setup-section">
+      <label>Personal Access Token (PAT)</label>
+      <input type="password" id="cfg-pat" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
+      <p class="setup-hint">
+        Gere em: <a href="https://github.com/settings/tokens?type=beta" target="_blank">GitHub → Settings → Developer settings → Fine-grained tokens</a><br>
+        Permissão necessária: <strong>Contents → Read and write</strong>
+      </p>
+    </div>
+
+    <button class="setup-btn" id="setup-btn" onclick="saveConfig()">Conectar e carregar dados</button>
+    <p class="setup-error" id="setup-error"></p>
+  </div>
 </div>
 
+<!-- ── Loading ── -->
+<div id="loading-overlay" style="display:none">
+  <div class="logo-big">PRT</div>
+  <div class="spinner"></div>
+  <p id="loading-msg">Carregando dados...</p>
+</div>
+
+<!-- ── App ── -->
 <div id="app" style="display:none">
   <aside class="sidebar">
     <div class="sidebar-logo">
@@ -209,21 +254,16 @@ textarea { resize: vertical; }
         <span id="sync-label">Sincronizado</span>
       </div>
     </div>
+    <div style="padding:8px 12px;border-top:1px solid rgba(255,255,255,.07)">
+      <button class="btn-config" onclick="openSetup()">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+        Configurações
+      </button>
+    </div>
     <div class="sidebar-footer">Gerente de Projetos</div>
   </aside>
 
   <main class="main">
-    <!-- Banner de erro de conexão -->
-    <div id="error-banner">
-      <strong>⚠️ Erro ao conectar ao SharePoint</strong>
-      <code id="error-detail"></code>
-      <div id="error-hint"></div>
-      <div class="err-actions">
-        <button onclick="retryLoad()">↺ Tentar novamente</button>
-        <button onclick="document.getElementById('error-banner').style.display='none'">Fechar</button>
-      </div>
-    </div>
-
     <!-- ATIVIDADES -->
     <div id="view-atividades" class="view">
       <div class="page-header">
@@ -271,10 +311,7 @@ textarea { resize: vertical; }
     <!-- COLABORADORES -->
     <div id="view-colaboradores" class="view" style="display:none">
       <div class="page-header">
-        <div>
-          <h1>Colaboradores</h1>
-          <p class="page-sub">Gerencie os colaboradores da equipe</p>
-        </div>
+        <div><h1>Colaboradores</h1><p class="page-sub">Gerencie os colaboradores da equipe</p></div>
         <button class="btn btn-primary" onclick="openColaboradorModal()">
           <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
           Novo Colaborador
@@ -286,25 +323,16 @@ textarea { resize: vertical; }
     <!-- DASHBOARD -->
     <div id="view-dashboard" class="view" style="display:none">
       <div class="page-header">
-        <div>
-          <h1>Dashboard</h1>
-          <p class="page-sub">Resumo por setor e responsável</p>
-        </div>
-        <button class="btn btn-ghost" onclick="reloadData()" style="gap:6px">
+        <div><h1>Dashboard</h1><p class="page-sub">Resumo por setor e responsável</p></div>
+        <button class="btn btn-ghost" onclick="reloadData()">
           <svg viewBox="0 0 24 24"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
           Atualizar
         </button>
       </div>
       <div class="dashboard-stats" id="dashboard-stats"></div>
       <div class="dashboard-grid">
-        <div class="card">
-          <div class="card-title">Atividades por Setor</div>
-          <div class="bar-chart" id="chart-setor"></div>
-        </div>
-        <div class="card">
-          <div class="card-title">Atividades por Responsável</div>
-          <div class="bar-chart" id="chart-responsavel"></div>
-        </div>
+        <div class="card"><div class="card-title">Atividades por Setor</div><div class="bar-chart" id="chart-setor"></div></div>
+        <div class="card"><div class="card-title">Atividades por Responsável</div><div class="bar-chart" id="chart-responsavel"></div></div>
       </div>
     </div>
   </main>
@@ -320,40 +348,16 @@ textarea { resize: vertical; }
     <form id="form-atividade" onsubmit="saveAtividade(event)">
       <input type="hidden" id="ativ-id" />
       <div class="form-row">
-        <div class="form-group">
-          <label>Empresa *</label>
-          <input type="text" id="ativ-empresa" value="PRT" required />
-        </div>
-        <div class="form-group">
-          <label>Setor *</label>
-          <input type="text" id="ativ-setor" list="list-setores" required />
-          <datalist id="list-setores"></datalist>
-        </div>
+        <div class="form-group"><label>Empresa *</label><input type="text" id="ativ-empresa" value="PRT" required /></div>
+        <div class="form-group"><label>Setor *</label><input type="text" id="ativ-setor" list="list-setores" required /><datalist id="list-setores"></datalist></div>
       </div>
-      <div class="form-group">
-        <label>Atividade (descrição) *</label>
-        <input type="text" id="ativ-descricao" required />
-      </div>
+      <div class="form-group"><label>Atividade (descrição) *</label><input type="text" id="ativ-descricao" required /></div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Responsável</label>
-          <input type="text" id="ativ-responsavel" list="list-colabs" />
-          <datalist id="list-colabs"></datalist>
-        </div>
-        <div class="form-group">
-          <label>Apoio</label>
-          <input type="text" id="ativ-apoio" list="list-colabs-apoio" />
-          <datalist id="list-colabs-apoio"></datalist>
-        </div>
+        <div class="form-group"><label>Responsável</label><input type="text" id="ativ-responsavel" list="list-colabs" /><datalist id="list-colabs"></datalist></div>
+        <div class="form-group"><label>Apoio</label><input type="text" id="ativ-apoio" list="list-colabs-apoio" /><datalist id="list-colabs-apoio"></datalist></div>
       </div>
-      <div class="form-group">
-        <label>Período</label>
-        <input type="text" id="ativ-periodo" placeholder="Ex: Mensal, Semanal..." />
-      </div>
-      <div class="form-group">
-        <label>Observação</label>
-        <textarea id="ativ-observacao" rows="3"></textarea>
-      </div>
+      <div class="form-group"><label>Período</label><input type="text" id="ativ-periodo" placeholder="Ex: Mensal, Semanal..." /></div>
+      <div class="form-group"><label>Observação</label><textarea id="ativ-observacao" rows="3"></textarea></div>
       <div class="modal-footer">
         <button type="button" class="btn btn-ghost" onclick="closeModal('modal-atividade')">Cancelar</button>
         <button type="submit" class="btn btn-primary" id="btn-save-ativ">Salvar</button>
@@ -372,25 +376,12 @@ textarea { resize: vertical; }
     <form id="form-colaborador" onsubmit="saveColaborador(event)">
       <input type="hidden" id="colab-id" />
       <div class="form-row">
-        <div class="form-group">
-          <label>Nome *</label>
-          <input type="text" id="colab-nome" required />
-        </div>
-        <div class="form-group">
-          <label>Setor *</label>
-          <input type="text" id="colab-setor" list="list-setores-colab" required />
-          <datalist id="list-setores-colab"></datalist>
-        </div>
+        <div class="form-group"><label>Nome *</label><input type="text" id="colab-nome" required /></div>
+        <div class="form-group"><label>Setor *</label><input type="text" id="colab-setor" list="list-setores-colab" required /><datalist id="list-setores-colab"></datalist></div>
       </div>
       <div class="form-row">
-        <div class="form-group">
-          <label>Cargo</label>
-          <input type="text" id="colab-cargo" />
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="colab-email" />
-        </div>
+        <div class="form-group"><label>Cargo</label><input type="text" id="colab-cargo" /></div>
+        <div class="form-group"><label>Email</label><input type="email" id="colab-email" /></div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-ghost" onclick="closeModal('modal-colaborador')">Cancelar</button>
@@ -418,18 +409,7 @@ textarea { resize: vertical; }
 <div id="toast" class="toast"></div>
 
 <script>
-// ── Configuração SharePoint ────────────────────────────────────────────────────
-const SP_SITE   = 'https://paranatrading.sharepoint.com/sites/intranet';
-const SP_FOLDER = '/sites/intranet/Documentos Compartilhados/GERENCIAL/Controle de Atividades';
-const FILE_ATV  = 'atividades.json';
-const FILE_COL  = 'colaboradores.json';
-
-// ── Dados em memória ──────────────────────────────────────────────────────────
-let _atividades    = [];
-let _colaboradores = [];
-let _saving        = false;
-
-// ── Dados iniciais (primeira vez) ────────────────────────────────────────────
+// ── Dados iniciais ────────────────────────────────────────────────────────────
 const INITIAL_ATIVIDADES = [
   {empresa:'PRT',setor:'Financeiro',atividade:'Planejamento ACC',responsavel:'João Victor',apoio:'',periodo:'',observacao:''},
   {empresa:'PRT',setor:'Marketing',atividade:'Site (novas atividades)',responsavel:'',apoio:'',periodo:'',observacao:''},
@@ -489,7 +469,6 @@ const INITIAL_ATIVIDADES = [
   {empresa:'PRT',setor:'Marketing',atividade:'Gestão de Redes Sociais',responsavel:'',apoio:'',periodo:'',observacao:''},
   {empresa:'PRT',setor:'Marketing',atividade:'Material Gráfico e Apresentações',responsavel:'',apoio:'',periodo:'',observacao:''},
 ];
-
 const INITIAL_COLABORADORES = [
   {nome:'João Victor',setor:'Financeiro',cargo:'Analista Financeiro',email:''},
   {nome:'Edney',setor:'Vendas',cargo:'Executivo de Vendas',email:''},
@@ -502,458 +481,333 @@ const INITIAL_COLABORADORES = [
 ];
 
 // ── Cores ─────────────────────────────────────────────────────────────────────
-const AVATAR_COLORS = ['#1a56db','#7e3af2','#057a55','#c81e1e','#c27803','#0694a2','#e74694','#6875f5','#31c48d','#f98080'];
-const SETOR_COLORS  = {
-  'Financeiro':'#1a56db','Vendas':'#057a55','Compras':'#7e3af2','Logistica':'#c27803',
-  'Comex':'#0694a2','Operacional Comex':'#0694a2','Fiscal':'#c81e1e','RH':'#e74694',
-  'Cadastro':'#6875f5','Marketing':'#31c48d','Regulatorio':'#f98080','Qualidade':'#84cc16',
-  'Projetos':'#f59e0b','Juridico':'#6b7280',
-};
+const AVATAR_COLORS=['#1a56db','#7e3af2','#057a55','#c81e1e','#c27803','#0694a2','#e74694','#6875f5','#31c48d','#f98080'];
+const SETOR_COLORS={'Financeiro':'#1a56db','Vendas':'#057a55','Compras':'#7e3af2','Logistica':'#c27803','Comex':'#0694a2','Operacional Comex':'#0694a2','Fiscal':'#c81e1e','RH':'#e74694','Cadastro':'#6875f5','Marketing':'#31c48d','Regulatorio':'#f98080','Qualidade':'#84cc16','Projetos':'#f59e0b','Juridico':'#6b7280'};
+function setorColor(s){return SETOR_COLORS[s]||'#64748b';}
+function avatarColor(n){let h=0;for(let i=0;i<n.length;i++)h=n.charCodeAt(i)+((h<<5)-h);return AVATAR_COLORS[Math.abs(h)%AVATAR_COLORS.length];}
+function initials(n){if(!n)return '?';const p=n.trim().split(' ');return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase();}
+function escHtml(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function nextId(arr){return arr.length?Math.max(...arr.map(x=>x.id))+1:1;}
 
-function setorColor(s) { return SETOR_COLORS[s] || '#64748b'; }
-function avatarColor(n) { let h=0; for(let i=0;i<n.length;i++) h=n.charCodeAt(i)+((h<<5)-h); return AVATAR_COLORS[Math.abs(h)%AVATAR_COLORS.length]; }
-function initials(n) { if(!n) return '?'; const p=n.trim().split(' '); return p.length>=2?(p[0][0]+p[p.length-1][0]).toUpperCase():n.slice(0,2).toUpperCase(); }
-function escHtml(s) { return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
-function nextId(arr) { return arr.length ? Math.max(...arr.map(x=>x.id))+1 : 1; }
+// ── Config ────────────────────────────────────────────────────────────────────
+function getCfg(){return JSON.parse(localStorage.getItem('prt_gh_cfg')||'{}');}
+function saveCfg(c){localStorage.setItem('prt_gh_cfg',JSON.stringify(c));}
 
-// ── SharePoint API ────────────────────────────────────────────────────────────
-async function getDigest() {
-  const r = await fetch(`${SP_SITE}/_api/contextinfo`, {
-    method: 'POST',
-    headers: { 'Accept': 'application/json;odata=nometadata', 'Content-Type': 'application/json' },
-    credentials: 'include'
-  });
-  if (!r.ok) {
-    const txt = await r.text().catch(()=>'');
-    throw new Error(`contextinfo HTTP ${r.status} — ${txt.slice(0,200)}`);
-  }
-  const d = await r.json();
-  return d.FormDigestValue;
+function openSetup(){
+  const c=getCfg();
+  document.getElementById('cfg-owner').value=c.owner||'';
+  document.getElementById('cfg-repo').value=c.repo||'controle-atividades-prt';
+  document.getElementById('cfg-pat').value=c.pat||'';
+  document.getElementById('setup-screen').style.display='flex';
+  document.getElementById('app').style.display='none';
 }
 
-async function spReadJson(filename) {
-  const url = `${SP_SITE}/_api/web/GetFileByServerRelativePath(decodedurl='${SP_FOLDER}/${filename}')/$value`;
-  const r = await fetch(url, {
-    headers: { 'Accept': 'application/json' },
-    credentials: 'include'
-  });
-  if (r.status === 404) return null;
-  if (!r.ok) {
-    const txt = await r.text().catch(()=>'');
-    throw new Error(`Leitura de ${filename} → HTTP ${r.status}: ${txt.slice(0,200)}`);
-  }
-  return await r.json();
+async function saveConfig(){
+  const owner=document.getElementById('cfg-owner').value.trim();
+  const repo=document.getElementById('cfg-repo').value.trim();
+  const pat=document.getElementById('cfg-pat').value.trim();
+  const errEl=document.getElementById('setup-error');
+  errEl.style.display='none';
+  if(!owner||!repo||!pat){errEl.textContent='Preencha todos os campos.';errEl.style.display='block';return;}
+  const btn=document.getElementById('setup-btn');
+  btn.disabled=true;btn.textContent='Verificando...';
+  try{
+    // Testa token
+    const r=await fetch(`https://api.github.com/repos/${owner}/${repo}`,{headers:ghHeaders(pat)});
+    if(r.status===401){throw new Error('Token inválido ou sem permissão.');}
+    if(r.status===404){throw new Error(`Repositório "${owner}/${repo}" não encontrado. Verifique o nome e se o token tem acesso.`);}
+    if(!r.ok){throw new Error(`Erro ao acessar repositório: HTTP ${r.status}`);}
+    saveCfg({owner,repo,pat});
+    document.getElementById('setup-screen').style.display='none';
+    document.getElementById('loading-overlay').style.display='flex';
+    await loadData();
+    document.getElementById('loading-overlay').style.display='none';
+    document.getElementById('app').style.display='';
+    renderAtividades();
+  }catch(e){
+    errEl.textContent=e.message;errEl.style.display='block';
+  }finally{btn.disabled=false;btn.textContent='Conectar e carregar dados';}
 }
 
-async function spWriteJson(filename, data) {
-  const digest = await getDigest();
-  const url = `${SP_SITE}/_api/web/GetFolderByServerRelativePath(decodedurl='${SP_FOLDER}')/Files/Add(overwrite=true,url='${filename}')`;
-  const r = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json;odata=nometadata',
-      'Content-Type': 'application/json',
-      'X-RequestDigest': digest,
-    },
-    credentials: 'include',
-    body: JSON.stringify(data)
-  });
-  if (!r.ok) {
-    const txt = await r.text().catch(()=>'');
-    throw new Error(`Gravação de ${filename} → HTTP ${r.status}: ${txt.slice(0,200)}`);
-  }
+// ── GitHub API ────────────────────────────────────────────────────────────────
+let _atividades=[], _colaboradores=[];
+let _shaAtv=null, _shaCol=null;
+
+function ghHeaders(pat){
+  const c=getCfg();
+  return {'Authorization':'token '+(pat||c.pat),'Accept':'application/vnd.github.v3+json','Content-Type':'application/json'};
+}
+
+function toB64(str){return btoa(unescape(encodeURIComponent(str)));}
+function fromB64(str){return decodeURIComponent(escape(atob(str)));}
+
+function ghUrl(filename){
+  const c=getCfg();
+  return `https://api.github.com/repos/${c.owner}/${c.repo}/contents/data/${filename}`;
+}
+
+async function ghRead(filename){
+  const r=await fetch(ghUrl(filename),{headers:ghHeaders()});
+  if(r.status===404)return{data:null,sha:null};
+  if(!r.ok)throw new Error(`Leitura de ${filename}: HTTP ${r.status}`);
+  const d=await r.json();
+  return{data:JSON.parse(fromB64(d.content.replace(/\n/g,''))),sha:d.sha};
+}
+
+async function ghWrite(filename,data,sha){
+  const body={message:`Update ${filename}`,content:toB64(JSON.stringify(data,null,2))};
+  if(sha)body.sha=sha;
+  const r=await fetch(ghUrl(filename),{method:'PUT',headers:ghHeaders(),body:JSON.stringify(body)});
+  if(!r.ok){const e=await r.json().catch(()=>({}));throw new Error(`Gravação de ${filename}: HTTP ${r.status} — ${e.message||''}`);}
+  const result=await r.json();
+  return result.content.sha;
 }
 
 // ── Sincronização ─────────────────────────────────────────────────────────────
-function setSyncStatus(status, label) {
-  const dot = document.getElementById('sync-dot');
-  const lbl = document.getElementById('sync-label');
-  dot.className = 'sync-dot' + (status === 'syncing' ? ' syncing' : status === 'error' ? ' error' : '');
-  lbl.textContent = label;
+function setSyncStatus(s,label){
+  const dot=document.getElementById('sync-dot'),lbl=document.getElementById('sync-label');
+  dot.className='sync-dot'+(s==='syncing'?' syncing':s==='error'?' error':'');
+  lbl.textContent=label;
 }
 
-function showErrorBanner(err) {
-  const isLocalFile = location.protocol === 'file:';
-  const isFetchFail = err.message === 'Failed to fetch';
-  const banner = document.getElementById('error-banner');
-  document.getElementById('error-detail').textContent = err.message;
-  let hint = '';
-  if (isLocalFile) {
-    hint = '🔴 Você está abrindo o arquivo localmente (C:\\...). Para funcionar, o arquivo deve ser aberto DENTRO do SharePoint, não do seu computador.';
-  } else if (isFetchFail) {
-    hint = '🔴 "Failed to fetch" geralmente indica que o arquivo não está sendo servido pelo SharePoint, ou há bloqueio de CORS. Certifique-se de acessar via URL do SharePoint.';
-  } else if (err.message.includes('401') || err.message.includes('403')) {
-    hint = '🔴 Erro de autenticação (401/403). Faça login no SharePoint e recarregue a página.';
-  } else if (err.message.includes('404')) {
-    hint = '🟡 Pasta não encontrada. Verifique se o caminho da pasta no SharePoint está correto.';
-  }
-  document.getElementById('error-hint').textContent = hint;
-  banner.style.display = 'block';
+async function loadData(){
+  setLoadingMsg('Carregando atividades...');
+  const [rv,rc]=await Promise.all([ghRead('atividades.json'),ghRead('colaboradores.json')]);
+  let isNew=false;
+  if(!rv.data){
+    const init=INITIAL_ATIVIDADES.map((x,i)=>({id:i+1,...x}));
+    setLoadingMsg('Criando base de dados inicial...');
+    _shaAtv=await ghWrite('atividades.json',init,null);
+    _atividades=init; isNew=true;
+  }else{_atividades=rv.data;_shaAtv=rv.sha;}
+  if(!rc.data){
+    const init=INITIAL_COLABORADORES.map((x,i)=>({id:i+1,...x}));
+    _shaCol=await ghWrite('colaboradores.json',init,null);
+    _colaboradores=init;
+  }else{_colaboradores=rc.data;_shaCol=rc.sha;}
+  setSyncStatus('ok','Sincronizado');
+  if(isNew)toast('Base de dados criada no GitHub!','success');
 }
 
-async function loadData() {
-  setLoadingMsg('Conectando ao SharePoint...');
-  document.getElementById('error-banner').style.display = 'none';
-  try {
-    setLoadingMsg('Verificando autenticação...');
-    // Testa conexão primeiro
-    await getDigest();
-
-    setLoadingMsg('Carregando atividades...');
-    let [av, co] = await Promise.all([spReadJson(FILE_ATV), spReadJson(FILE_COL)]);
-    let isNew = false;
-
-    if (!av) {
-      av = INITIAL_ATIVIDADES.map((x,i) => ({id:i+1,...x}));
-      setLoadingMsg('Criando base de dados inicial no SharePoint...');
-      await spWriteJson(FILE_ATV, av);
-      isNew = true;
-    }
-    if (!co) {
-      co = INITIAL_COLABORADORES.map((x,i) => ({id:i+1,...x}));
-      await spWriteJson(FILE_COL, co);
-    }
-
-    _atividades    = av;
-    _colaboradores = co;
-    setSyncStatus('ok', 'Sincronizado');
-    if (isNew) toast('Base de dados criada no SharePoint!', 'success');
-  } catch(err) {
-    setSyncStatus('error', 'Erro de conexão');
-    console.error('[PRT] Erro SharePoint:', err);
-    showErrorBanner(err);
-  }
-}
-
-async function retryLoad() {
-  document.getElementById('error-banner').style.display = 'none';
-  setSyncStatus('syncing', 'Reconectando...');
-  await loadData();
-  renderAtividades();
-}
-
-async function reloadData() {
-  setSyncStatus('syncing', 'Atualizando...');
-  try {
-    const [av, co] = await Promise.all([spReadJson(FILE_ATV), spReadJson(FILE_COL)]);
-    if (av) _atividades    = av;
-    if (co) _colaboradores = co;
-    setSyncStatus('ok', 'Sincronizado');
-    toast('Dados atualizados!', 'success');
+async function reloadData(){
+  setSyncStatus('syncing','Atualizando...');
+  try{
+    const [rv,rc]=await Promise.all([ghRead('atividades.json'),ghRead('colaboradores.json')]);
+    if(rv.data){_atividades=rv.data;_shaAtv=rv.sha;}
+    if(rc.data){_colaboradores=rc.data;_shaCol=rc.sha;}
+    setSyncStatus('ok','Sincronizado');
+    toast('Dados atualizados!','success');
     renderAtividades();
-    renderColaboradores();
-    if (document.getElementById('view-dashboard').style.display !== 'none') renderDashboard();
-  } catch(err) {
-    setSyncStatus('error', 'Erro ao atualizar');
-    toast('Erro ao atualizar: ' + err.message, 'error');
-  }
+    if(document.getElementById('view-colaboradores').style.display!=='none')renderColaboradores();
+    if(document.getElementById('view-dashboard').style.display!=='none')renderDashboard();
+  }catch(e){setSyncStatus('error','Erro');toast('Erro: '+e.message,'error');}
 }
 
-async function persistAtividades() {
-  setSyncStatus('syncing', 'Salvando...');
-  try {
-    await spWriteJson(FILE_ATV, _atividades);
-    setSyncStatus('ok', 'Sincronizado');
-  } catch(err) {
-    setSyncStatus('error', 'Erro ao salvar');
-    toast('Erro ao salvar no SharePoint: ' + err.message, 'error');
-    throw err;
-  }
+async function persistAtividades(){
+  setSyncStatus('syncing','Salvando...');
+  try{_shaAtv=await ghWrite('atividades.json',_atividades,_shaAtv);setSyncStatus('ok','Sincronizado');}
+  catch(e){setSyncStatus('error','Erro ao salvar');toast(e.message,'error');throw e;}
 }
 
-async function persistColaboradores() {
-  setSyncStatus('syncing', 'Salvando...');
-  try {
-    await spWriteJson(FILE_COL, _colaboradores);
-    setSyncStatus('ok', 'Sincronizado');
-  } catch(err) {
-    setSyncStatus('error', 'Erro ao salvar');
-    toast('Erro ao salvar no SharePoint: ' + err.message, 'error');
-    throw err;
-  }
+async function persistColaboradores(){
+  setSyncStatus('syncing','Salvando...');
+  try{_shaCol=await ghWrite('colaboradores.json',_colaboradores,_shaCol);setSyncStatus('ok','Sincronizado');}
+  catch(e){setSyncStatus('error','Erro ao salvar');toast(e.message,'error');throw e;}
 }
 
 // ── Navegação ─────────────────────────────────────────────────────────────────
-document.querySelectorAll('.nav-item').forEach(el => {
-  el.addEventListener('click', e => {
-    e.preventDefault();
-    const view = el.dataset.view;
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+document.querySelectorAll('.nav-item').forEach(el=>{
+  el.addEventListener('click',e=>{
+    e.preventDefault();const view=el.dataset.view;
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
     el.classList.add('active');
-    document.querySelectorAll('.view').forEach(v => v.style.display = 'none');
-    document.getElementById('view-' + view).style.display = '';
-    if (view === 'atividades')    renderAtividades();
-    if (view === 'colaboradores') renderColaboradores();
-    if (view === 'dashboard')     renderDashboard();
+    document.querySelectorAll('.view').forEach(v=>v.style.display='none');
+    document.getElementById('view-'+view).style.display='';
+    if(view==='atividades')renderAtividades();
+    if(view==='colaboradores')renderColaboradores();
+    if(view==='dashboard')renderDashboard();
   });
 });
 
-// ── Filtros ───────────────────────────────────────────────────────────────────
-function populateFilters() {
-  const setores = [...new Set(_atividades.map(a=>a.setor).filter(Boolean))].sort();
-  const resps   = [...new Set(_atividades.map(a=>a.responsavel).filter(Boolean))].sort();
-  const ss = document.getElementById('filter-setor'), sr = document.getElementById('filter-responsavel');
-  const cs = ss.value, cr = sr.value;
-  ss.innerHTML = '<option value="">Todos os Setores</option>'    + setores.map(s=>`<option value="${s}"${s===cs?' selected':''}>${s}</option>`).join('');
-  sr.innerHTML = '<option value="">Todos os Responsáveis</option>' + resps.map(r=>`<option value="${r}"${r===cr?' selected':''}>${r}</option>`).join('');
-  const ls = document.getElementById('list-setores'); if(ls) ls.innerHTML = setores.map(s=>`<option value="${s}">`).join('');
-  const lc = document.getElementById('list-setores-colab'); if(lc) lc.innerHTML = setores.map(s=>`<option value="${s}">`).join('');
+function populateFilters(){
+  const setores=[...new Set(_atividades.map(a=>a.setor).filter(Boolean))].sort();
+  const resps=[...new Set(_atividades.map(a=>a.responsavel).filter(Boolean))].sort();
+  const ss=document.getElementById('filter-setor'),sr=document.getElementById('filter-responsavel');
+  const cs=ss.value,cr=sr.value;
+  ss.innerHTML='<option value="">Todos os Setores</option>'+setores.map(s=>`<option value="${s}"${s===cs?' selected':''}>${s}</option>`).join('');
+  sr.innerHTML='<option value="">Todos os Responsáveis</option>'+resps.map(r=>`<option value="${r}"${r===cr?' selected':''}>${r}</option>`).join('');
+  const ls=document.getElementById('list-setores');if(ls)ls.innerHTML=setores.map(s=>`<option value="${s}">`).join('');
+  const lc=document.getElementById('list-setores-colab');if(lc)lc.innerHTML=setores.map(s=>`<option value="${s}">`).join('');
+}
+function populateColabList(){
+  const names=_colaboradores.map(c=>c.nome).filter(Boolean).sort();
+  ['list-colabs','list-colabs-apoio'].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=names.map(n=>`<option value="${n}">`).join('');});
 }
 
-function populateColabList() {
-  const names = _colaboradores.map(c=>c.nome).filter(Boolean).sort();
-  ['list-colabs','list-colabs-apoio'].forEach(id => {
-    const el = document.getElementById(id); if(el) el.innerHTML = names.map(n=>`<option value="${n}">`).join('');
-  });
-}
-
-// ── Render Atividades ─────────────────────────────────────────────────────────
-function renderAtividades() {
+function renderAtividades(){
   populateFilters();
-  const search = (document.getElementById('search-input').value||'').toLowerCase();
-  const setor  = document.getElementById('filter-setor').value;
-  const resp   = document.getElementById('filter-responsavel').value;
-  const data   = _atividades.filter(a => {
-    if (setor && a.setor !== setor) return false;
-    if (resp  && a.responsavel !== resp) return false;
-    if (search && !(a.atividade+a.responsavel+a.setor+a.observacao).toLowerCase().includes(search)) return false;
+  const search=(document.getElementById('search-input').value||'').toLowerCase();
+  const setor=document.getElementById('filter-setor').value;
+  const resp=document.getElementById('filter-responsavel').value;
+  const data=_atividades.filter(a=>{
+    if(setor&&a.setor!==setor)return false;
+    if(resp&&a.responsavel!==resp)return false;
+    if(search&&!(a.atividade+a.responsavel+a.setor+a.observacao).toLowerCase().includes(search))return false;
     return true;
   });
-  const body  = document.getElementById('atividades-body');
-  const empty = document.getElementById('empty-state');
-  document.getElementById('filter-count').textContent = data.length + ' atividade' + (data.length!==1?'s':'');
-  if (!data.length) { body.innerHTML=''; empty.style.display=''; return; }
-  empty.style.display = 'none';
-  body.innerHTML = data.map(a => `
+  const body=document.getElementById('atividades-body'),empty=document.getElementById('empty-state');
+  document.getElementById('filter-count').textContent=data.length+' atividade'+(data.length!==1?'s':'');
+  if(!data.length){body.innerHTML='';empty.style.display='';return;}
+  empty.style.display='none';
+  body.innerHTML=data.map(a=>`
     <tr>
       <td style="color:var(--text-muted);font-size:13px">${a.id}</td>
       <td><span class="badge" style="background:#1a56db18;color:#1a56db">${escHtml(a.empresa||'PRT')}</span></td>
       <td><span class="badge" style="background:${setorColor(a.setor)}18;color:${setorColor(a.setor)}">${escHtml(a.setor)}</span></td>
-      <td class="td-atividade">
-        <div>${escHtml(a.atividade)}</div>
-        ${a.observacao?`<div class="td-obs">${escHtml(a.observacao)}</div>`:''}
-      </td>
-      <td>${a.responsavel?`<span style="display:flex;align-items:center;gap:6px">
-        <span style="width:26px;height:26px;border-radius:50%;background:${avatarColor(a.responsavel)};color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(a.responsavel)}</span>
-        ${escHtml(a.responsavel)}</span>`:'<span style="color:var(--text-muted)">—</span>'}</td>
+      <td class="td-atividade"><div>${escHtml(a.atividade)}</div>${a.observacao?`<div class="td-obs">${escHtml(a.observacao)}</div>`:''}</td>
+      <td>${a.responsavel?`<span style="display:flex;align-items:center;gap:6px"><span style="width:26px;height:26px;border-radius:50%;background:${avatarColor(a.responsavel)};color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">${initials(a.responsavel)}</span>${escHtml(a.responsavel)}</span>`:'<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${a.apoio?escHtml(a.apoio):'<span style="color:var(--text-muted)">—</span>'}</td>
       <td>${a.periodo?escHtml(a.periodo):'<span style="color:var(--text-muted)">—</span>'}</td>
       <td><div class="actions-cell">
-        <button class="btn-icon" title="Editar" onclick="editAtividade(${a.id})">
-          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="btn-icon delete" title="Excluir" onclick="confirmDeleteAtividade(${a.id})">
-          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        </button>
+        <button class="btn-icon" title="Editar" onclick="editAtividade(${a.id})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="btn-icon delete" title="Excluir" onclick="confirmDeleteAtividade(${a.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button>
       </div></td>
     </tr>`).join('');
 }
 
-// ── Modal Atividade ───────────────────────────────────────────────────────────
-function openAtividadeModal(a=null) {
-  populateFilters(); populateColabList();
-  document.getElementById('modal-atividade-title').textContent = a ? 'Editar Atividade' : 'Nova Atividade';
-  document.getElementById('ativ-id').value          = a ? a.id : '';
-  document.getElementById('ativ-empresa').value     = a ? a.empresa : 'PRT';
-  document.getElementById('ativ-setor').value       = a ? a.setor : '';
-  document.getElementById('ativ-descricao').value   = a ? a.atividade : '';
-  document.getElementById('ativ-responsavel').value = a ? a.responsavel : '';
-  document.getElementById('ativ-apoio').value       = a ? a.apoio : '';
-  document.getElementById('ativ-periodo').value     = a ? a.periodo : '';
-  document.getElementById('ativ-observacao').value  = a ? a.observacao : '';
-  document.getElementById('modal-atividade').style.display = 'flex';
+function openAtividadeModal(a=null){
+  populateFilters();populateColabList();
+  document.getElementById('modal-atividade-title').textContent=a?'Editar Atividade':'Nova Atividade';
+  document.getElementById('ativ-id').value=a?a.id:'';
+  document.getElementById('ativ-empresa').value=a?a.empresa:'PRT';
+  document.getElementById('ativ-setor').value=a?a.setor:'';
+  document.getElementById('ativ-descricao').value=a?a.atividade:'';
+  document.getElementById('ativ-responsavel').value=a?a.responsavel:'';
+  document.getElementById('ativ-apoio').value=a?a.apoio:'';
+  document.getElementById('ativ-periodo').value=a?a.periodo:'';
+  document.getElementById('ativ-observacao').value=a?a.observacao:'';
+  document.getElementById('modal-atividade').style.display='flex';
 }
+function editAtividade(id){const a=_atividades.find(x=>x.id===id);if(a)openAtividadeModal(a);}
 
-function editAtividade(id) { const a = _atividades.find(x=>x.id===id); if(a) openAtividadeModal(a); }
-
-async function saveAtividade(e) {
+async function saveAtividade(e){
   e.preventDefault();
-  const btn = document.getElementById('btn-save-ativ');
-  btn.disabled = true; btn.textContent = 'Salvando...';
-  const id = document.getElementById('ativ-id').value;
-  const obj = {
-    empresa:     document.getElementById('ativ-empresa').value.trim(),
-    setor:       document.getElementById('ativ-setor').value.trim(),
-    atividade:   document.getElementById('ativ-descricao').value.trim(),
-    responsavel: document.getElementById('ativ-responsavel').value.trim(),
-    apoio:       document.getElementById('ativ-apoio').value.trim(),
-    periodo:     document.getElementById('ativ-periodo').value.trim(),
-    observacao:  document.getElementById('ativ-observacao').value.trim(),
-  };
-  try {
-    if (id) {
-      const idx = _atividades.findIndex(x=>x.id===parseInt(id));
-      if (idx !== -1) _atividades[idx] = {..._atividades[idx], ...obj};
-    } else {
-      obj.id = nextId(_atividades);
-      _atividades.push(obj);
-    }
+  const btn=document.getElementById('btn-save-ativ');
+  btn.disabled=true;btn.textContent='Salvando...';
+  const id=document.getElementById('ativ-id').value;
+  const obj={empresa:document.getElementById('ativ-empresa').value.trim(),setor:document.getElementById('ativ-setor').value.trim(),atividade:document.getElementById('ativ-descricao').value.trim(),responsavel:document.getElementById('ativ-responsavel').value.trim(),apoio:document.getElementById('ativ-apoio').value.trim(),periodo:document.getElementById('ativ-periodo').value.trim(),observacao:document.getElementById('ativ-observacao').value.trim()};
+  try{
+    if(id){const idx=_atividades.findIndex(x=>x.id===parseInt(id));if(idx!==-1)_atividades[idx]={..._atividades[idx],...obj};}
+    else{obj.id=nextId(_atividades);_atividades.push(obj);}
     await persistAtividades();
-    toast(id ? 'Atividade atualizada!' : 'Atividade cadastrada!', 'success');
-    closeModal('modal-atividade');
-    renderAtividades();
-  } catch(err) { /* toast já exibido em persistAtividades */ }
-  finally { btn.disabled = false; btn.textContent = 'Salvar'; }
+    toast(id?'Atividade atualizada!':'Atividade cadastrada!','success');
+    closeModal('modal-atividade');renderAtividades();
+  }catch(e){}finally{btn.disabled=false;btn.textContent='Salvar';}
 }
 
-function confirmDeleteAtividade(id) {
-  const a = _atividades.find(x=>x.id===id);
-  document.getElementById('delete-msg').textContent = `Deseja excluir a atividade "${a?a.atividade:''}"? Esta ação não pode ser desfeita.`;
-  document.getElementById('confirm-delete-btn').onclick = async () => {
-    const btn = document.getElementById('confirm-delete-btn');
-    btn.disabled = true; btn.textContent = 'Excluindo...';
-    try {
-      _atividades = _atividades.filter(x=>x.id!==id);
-      await persistAtividades();
-      closeModal('modal-delete');
-      renderAtividades();
-      toast('Atividade excluída.');
-    } catch(err) { _atividades.push(a); } // reverte se falhar
-    finally { btn.disabled = false; btn.textContent = 'Excluir'; }
+function confirmDeleteAtividade(id){
+  const a=_atividades.find(x=>x.id===id);
+  document.getElementById('delete-msg').textContent=`Deseja excluir a atividade "${a?a.atividade:''}"? Esta ação não pode ser desfeita.`;
+  document.getElementById('confirm-delete-btn').onclick=async()=>{
+    const btn=document.getElementById('confirm-delete-btn');btn.disabled=true;btn.textContent='Excluindo...';
+    try{_atividades=_atividades.filter(x=>x.id!==id);await persistAtividades();closeModal('modal-delete');renderAtividades();toast('Atividade excluída.');}
+    catch(e){_atividades.push(a);}finally{btn.disabled=false;btn.textContent='Excluir';}
   };
-  document.getElementById('modal-delete').style.display = 'flex';
+  document.getElementById('modal-delete').style.display='flex';
 }
 
-// ── Render Colaboradores ──────────────────────────────────────────────────────
-function renderColaboradores() {
+function renderColaboradores(){
   populateFilters();
-  const grid = document.getElementById('colabs-grid');
-  if (!_colaboradores.length) { grid.innerHTML='<p style="color:var(--text-muted)">Nenhum colaborador cadastrado.</p>'; return; }
-  grid.innerHTML = _colaboradores.map(c => {
-    const count = _atividades.filter(a=>a.responsavel===c.nome).length;
-    const color = avatarColor(c.nome);
-    return `<div class="colab-card">
-      <div style="display:flex;align-items:center;gap:14px">
-        <div class="colab-avatar" style="background:${color}">${initials(c.nome)}</div>
-        <div>
-          <div class="colab-name">${escHtml(c.nome)}</div>
-          <div class="colab-meta">${escHtml(c.setor)}${c.cargo?' · '+escHtml(c.cargo):''}</div>
-          ${c.email?`<div class="colab-meta">${escHtml(c.email)}</div>`:''}
-        </div>
-      </div>
-      <div style="font-size:13px;color:var(--text-muted)">${count} atividade${count!==1?'s':''} como responsável</div>
-      <div class="colab-actions">
-        <button class="btn-icon" title="Editar" onclick="editColaborador(${c.id})">
-          <svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="btn-icon delete" title="Excluir" onclick="confirmDeleteColaborador(${c.id})">
-          <svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-        </button>
-      </div>
-    </div>`;
+  const grid=document.getElementById('colabs-grid');
+  if(!_colaboradores.length){grid.innerHTML='<p style="color:var(--text-muted)">Nenhum colaborador cadastrado.</p>';return;}
+  grid.innerHTML=_colaboradores.map(c=>{
+    const count=_atividades.filter(a=>a.responsavel===c.nome).length,color=avatarColor(c.nome);
+    return `<div class="colab-card"><div style="display:flex;align-items:center;gap:14px"><div class="colab-avatar" style="background:${color}">${initials(c.nome)}</div><div><div class="colab-name">${escHtml(c.nome)}</div><div class="colab-meta">${escHtml(c.setor)}${c.cargo?' · '+escHtml(c.cargo):''}</div>${c.email?`<div class="colab-meta">${escHtml(c.email)}</div>`:''}</div></div><div style="font-size:13px;color:var(--text-muted)">${count} atividade${count!==1?'s':''} como responsável</div><div class="colab-actions"><button class="btn-icon" title="Editar" onclick="editColaborador(${c.id})"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button><button class="btn-icon delete" title="Excluir" onclick="confirmDeleteColaborador(${c.id})"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/></svg></button></div></div>`;
   }).join('');
 }
 
-function openColaboradorModal(c=null) {
+function openColaboradorModal(c=null){
   populateFilters();
-  document.getElementById('modal-colaborador-title').textContent = c ? 'Editar Colaborador' : 'Novo Colaborador';
-  document.getElementById('colab-id').value    = c ? c.id : '';
-  document.getElementById('colab-nome').value  = c ? c.nome : '';
-  document.getElementById('colab-setor').value = c ? c.setor : '';
-  document.getElementById('colab-cargo').value = c ? c.cargo : '';
-  document.getElementById('colab-email').value = c ? c.email : '';
-  document.getElementById('modal-colaborador').style.display = 'flex';
+  document.getElementById('modal-colaborador-title').textContent=c?'Editar Colaborador':'Novo Colaborador';
+  document.getElementById('colab-id').value=c?c.id:'';
+  document.getElementById('colab-nome').value=c?c.nome:'';
+  document.getElementById('colab-setor').value=c?c.setor:'';
+  document.getElementById('colab-cargo').value=c?c.cargo:'';
+  document.getElementById('colab-email').value=c?c.email:'';
+  document.getElementById('modal-colaborador').style.display='flex';
 }
+function editColaborador(id){const c=_colaboradores.find(x=>x.id===id);if(c)openColaboradorModal(c);}
 
-function editColaborador(id) { const c = _colaboradores.find(x=>x.id===id); if(c) openColaboradorModal(c); }
-
-async function saveColaborador(e) {
+async function saveColaborador(e){
   e.preventDefault();
-  const btn = document.getElementById('btn-save-colab');
-  btn.disabled = true; btn.textContent = 'Salvando...';
-  const id = document.getElementById('colab-id').value;
-  const obj = {
-    nome:  document.getElementById('colab-nome').value.trim(),
-    setor: document.getElementById('colab-setor').value.trim(),
-    cargo: document.getElementById('colab-cargo').value.trim(),
-    email: document.getElementById('colab-email').value.trim(),
-  };
-  try {
-    if (id) {
-      const idx = _colaboradores.findIndex(x=>x.id===parseInt(id));
-      if (idx !== -1) _colaboradores[idx] = {..._colaboradores[idx], ...obj};
-    } else {
-      obj.id = nextId(_colaboradores);
-      _colaboradores.push(obj);
-    }
+  const btn=document.getElementById('btn-save-colab');btn.disabled=true;btn.textContent='Salvando...';
+  const id=document.getElementById('colab-id').value;
+  const obj={nome:document.getElementById('colab-nome').value.trim(),setor:document.getElementById('colab-setor').value.trim(),cargo:document.getElementById('colab-cargo').value.trim(),email:document.getElementById('colab-email').value.trim()};
+  try{
+    if(id){const idx=_colaboradores.findIndex(x=>x.id===parseInt(id));if(idx!==-1)_colaboradores[idx]={..._colaboradores[idx],...obj};}
+    else{obj.id=nextId(_colaboradores);_colaboradores.push(obj);}
     await persistColaboradores();
-    toast(id ? 'Colaborador atualizado!' : 'Colaborador cadastrado!', 'success');
-    closeModal('modal-colaborador');
-    renderColaboradores();
-  } catch(err) {}
-  finally { btn.disabled = false; btn.textContent = 'Salvar'; }
+    toast(id?'Colaborador atualizado!':'Colaborador cadastrado!','success');
+    closeModal('modal-colaborador');renderColaboradores();
+  }catch(e){}finally{btn.disabled=false;btn.textContent='Salvar';}
 }
 
-function confirmDeleteColaborador(id) {
-  const c = _colaboradores.find(x=>x.id===id);
-  document.getElementById('delete-msg').textContent = `Deseja excluir o colaborador "${c?c.nome:''}"? Esta ação não pode ser desfeita.`;
-  document.getElementById('confirm-delete-btn').onclick = async () => {
-    const btn = document.getElementById('confirm-delete-btn');
-    btn.disabled = true; btn.textContent = 'Excluindo...';
-    try {
-      _colaboradores = _colaboradores.filter(x=>x.id!==id);
-      await persistColaboradores();
-      closeModal('modal-delete');
-      renderColaboradores();
-      toast('Colaborador excluído.');
-    } catch(err) { _colaboradores.push(c); }
-    finally { btn.disabled = false; btn.textContent = 'Excluir'; }
+function confirmDeleteColaborador(id){
+  const c=_colaboradores.find(x=>x.id===id);
+  document.getElementById('delete-msg').textContent=`Deseja excluir o colaborador "${c?c.nome:''}"? Esta ação não pode ser desfeita.`;
+  document.getElementById('confirm-delete-btn').onclick=async()=>{
+    const btn=document.getElementById('confirm-delete-btn');btn.disabled=true;btn.textContent='Excluindo...';
+    try{_colaboradores=_colaboradores.filter(x=>x.id!==id);await persistColaboradores();closeModal('modal-delete');renderColaboradores();toast('Colaborador excluído.');}
+    catch(e){_colaboradores.push(c);}finally{btn.disabled=false;btn.textContent='Excluir';}
   };
-  document.getElementById('modal-delete').style.display = 'flex';
+  document.getElementById('modal-delete').style.display='flex';
 }
 
-// ── Dashboard ─────────────────────────────────────────────────────────────────
-function renderDashboard() {
-  const sm={}, rm={};
-  _atividades.forEach(a => {
-    sm[a.setor] = (sm[a.setor]||0)+1;
-    if (a.responsavel) rm[a.responsavel] = (rm[a.responsavel]||0)+1;
-  });
+function renderDashboard(){
+  const sm={},rm={};
+  _atividades.forEach(a=>{sm[a.setor]=(sm[a.setor]||0)+1;if(a.responsavel)rm[a.responsavel]=(rm[a.responsavel]||0)+1;});
   document.getElementById('dashboard-stats').innerHTML=`
     <div class="stat-card"><div class="stat-label">Total de Atividades</div><div class="stat-value">${_atividades.length}</div></div>
     <div class="stat-card"><div class="stat-label">Colaboradores</div><div class="stat-value">${_colaboradores.length}</div></div>
     <div class="stat-card"><div class="stat-label">Setores</div><div class="stat-value">${Object.keys(sm).length}</div></div>
     <div class="stat-card"><div class="stat-label">Sem Responsável</div><div class="stat-value">${_atividades.filter(a=>!a.responsavel).length}</div></div>`;
-  renderBarChart('chart-setor', sm, true);
-  renderBarChart('chart-responsavel', rm, false);
+  renderBarChart('chart-setor',sm,true);renderBarChart('chart-responsavel',rm,false);
 }
 
-function renderBarChart(id, map, useSetor) {
-  const entries = Object.entries(map).sort((a,b)=>b[1]-a[1]);
-  const max = entries[0]?.[1]||1;
-  document.getElementById(id).innerHTML = entries.map(([label,count]) => {
-    const color = useSetor ? setorColor(label) : avatarColor(label);
-    return `<div class="bar-row">
-      <div class="bar-label" title="${escHtml(label)}">${escHtml(label)}</div>
-      <div class="bar-track"><div class="bar-fill" style="width:${(count/max*100).toFixed(1)}%;background:${color}"></div></div>
-      <div class="bar-count">${count}</div>
-    </div>`;
+function renderBarChart(id,map,useSetor){
+  const entries=Object.entries(map).sort((a,b)=>b[1]-a[1]),max=entries[0]?.[1]||1;
+  document.getElementById(id).innerHTML=entries.map(([label,count])=>{
+    const color=useSetor?setorColor(label):avatarColor(label);
+    return `<div class="bar-row"><div class="bar-label" title="${escHtml(label)}">${escHtml(label)}</div><div class="bar-track"><div class="bar-fill" style="width:${(count/max*100).toFixed(1)}%;background:${color}"></div></div><div class="bar-count">${count}</div></div>`;
   }).join('');
 }
 
-// ── Utilitários ───────────────────────────────────────────────────────────────
-function closeModal(id) { document.getElementById(id).style.display='none'; }
-function closeModalOnOverlay(e,id) { if(e.target===document.getElementById(id)) closeModal(id); }
-document.addEventListener('keydown', e => { if(e.key==='Escape') ['modal-atividade','modal-colaborador','modal-delete'].forEach(closeModal); });
+function closeModal(id){document.getElementById(id).style.display='none';}
+function closeModalOnOverlay(e,id){if(e.target===document.getElementById(id))closeModal(id);}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')['modal-atividade','modal-colaborador','modal-delete'].forEach(closeModal);});
 
-function toast(msg, type='') {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = 'toast show' + (type?' '+type:'');
-  clearTimeout(el._t);
-  el._t = setTimeout(()=>{ el.className='toast'; }, 3000);
+function toast(msg,type=''){
+  const el=document.getElementById('toast');el.textContent=msg;
+  el.className='toast show'+(type?' '+type:'');
+  clearTimeout(el._t);el._t=setTimeout(()=>{el.className='toast';},3000);
 }
-
-function setLoadingMsg(msg) { document.getElementById('loading-msg').textContent = msg; }
+function setLoadingMsg(msg){document.getElementById('loading-msg').textContent=msg;}
 
 // ── Boot ──────────────────────────────────────────────────────────────────────
-(async () => {
-  try {
+(async()=>{
+  const c=getCfg();
+  if(!c.owner||!c.pat){openSetup();return;}
+  document.getElementById('setup-screen').style.display='none';
+  document.getElementById('loading-overlay').style.display='flex';
+  try{
     await loadData();
-  } finally {
-    document.getElementById('loading-overlay').style.display = 'none';
-    document.getElementById('app').style.display = '';
+    document.getElementById('app').style.display='';
     renderAtividades();
+  }catch(e){
+    toast('Erro ao carregar: '+e.message,'error');
+    openSetup();
+  }finally{
+    document.getElementById('loading-overlay').style.display='none';
   }
 })();
 </script>

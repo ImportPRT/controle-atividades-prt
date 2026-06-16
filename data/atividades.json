@@ -1,0 +1,572 @@
+[
+  {
+    "id": 1,
+    "empresa": "PRT",
+    "setor": "Financeiro",
+    "atividade": "Planejamento ACC",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 2,
+    "empresa": "PRT",
+    "setor": "Marketing",
+    "atividade": "Site (novas atividades)",
+    "responsavel": "",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 3,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "Emissão de Proforma + Sales Order",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 4,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "Enviar Ofertas para os Clientes",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 5,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "DocuSign",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 6,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "Master Clientes & SRM",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 7,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Copilar os dados do Pedido para Detalhamento Interno",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Cuidados com os SKUs repetidos."
+  },
+  {
+    "id": 8,
+    "empresa": "PRT",
+    "setor": "Regulatorio",
+    "atividade": "Etiquetas",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "De acordo com modelo de cada país"
+  },
+  {
+    "id": 9,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Desembaraço Bélgica e UK",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Deny Cargo, Nuno"
+  },
+  {
+    "id": 10,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Financeiro Deny Cargo",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 11,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Desembaraço USA",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Express Customs"
+  },
+  {
+    "id": 12,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Delivery Interno Internacional (Europa e USA)",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 13,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Definição do Booking",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 14,
+    "empresa": "PRT",
+    "setor": "Fiscal",
+    "atividade": "Emissão de NF PRT Omie",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Emite o espelho e gera a NF."
+  },
+  {
+    "id": 15,
+    "empresa": "PRT",
+    "setor": "Financeiro",
+    "atividade": "Nota de Débito",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 16,
+    "empresa": "PRT",
+    "setor": "Financeiro",
+    "atividade": "NFs de despesas / Cobrança Serviços em Geral",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Armazem, Porto, Agente de Cargas, Despachantes."
+  },
+  {
+    "id": 17,
+    "empresa": "PRT",
+    "setor": "RH",
+    "atividade": "Banco de Horas Funcionários PRT",
+    "responsavel": "Janine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 18,
+    "empresa": "PRT",
+    "setor": "RH",
+    "atividade": "Caju",
+    "responsavel": "Janine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 19,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Compras - efetuar compras com os fornecedores",
+    "responsavel": "Hannan",
+    "apoio": "Ronny",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 20,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Compras - informar para o BPO o provisionamento das despesas",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "BPO recebe a informação e lança no sistema Omie"
+  },
+  {
+    "id": 21,
+    "empresa": "PRT",
+    "setor": "Comex",
+    "atividade": "Juntada de documentos para emissão da DUE",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "NF, xml, invoice DUE, relação chave de NF"
+  },
+  {
+    "id": 22,
+    "empresa": "PRT",
+    "setor": "Comex",
+    "atividade": "Envio de NFs para a transportadora",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Exemplo: 1500 transportes"
+  },
+  {
+    "id": 23,
+    "empresa": "PRT",
+    "setor": "Comex",
+    "atividade": "Conferencia do Draft do BL - Dry",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 24,
+    "empresa": "PRT",
+    "setor": "Fiscal",
+    "atividade": "Emissão de NF PRT (Espelho)",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 25,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Colocar os Oks de compras no Detalhamento Interno",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 26,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Lançar NF de compra no Detalhamento Interno",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 27,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Lançar NF de compra no OMIE",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Associar produto e ajustar quantidade (padrão PRT)"
+  },
+  {
+    "id": 28,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Lançar no relatorio NF de compra na Consystem",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Lançar na planilha modelo definido"
+  },
+  {
+    "id": 29,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Acompanhamento de recebimento de carga",
+    "responsavel": "Hannan",
+    "apoio": "Rony",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 30,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Validação das datas de validades dos produtos recebidos",
+    "responsavel": "Hannan",
+    "apoio": "Rony",
+    "periodo": "",
+    "observacao": "Validade aprovada no grupo, registrar no Detalhamento."
+  },
+  {
+    "id": 31,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Pre-Lista (Pre-Lista e Lista Final)",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Pré-Lista com validade"
+  },
+  {
+    "id": 32,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Inventário Mensal Físico",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "Mensal",
+    "observacao": "Conferencia VAZ (Físico) x PRT (Planilha)"
+  },
+  {
+    "id": 33,
+    "empresa": "PRT",
+    "setor": "Compras",
+    "atividade": "Cotações",
+    "responsavel": "Edilaine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Cotações com os fornecedores"
+  },
+  {
+    "id": 34,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Cotar e Fechar Booking",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 35,
+    "empresa": "PRT",
+    "setor": "Cadastro",
+    "atividade": "Cadastro de Produtos Planilha Master Cadastro",
+    "responsavel": "Edilaine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Master, Bling."
+  },
+  {
+    "id": 36,
+    "empresa": "PRT",
+    "setor": "Cadastro",
+    "atividade": "Cadastro de Produtos Omie",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Ideal cadastrar após a compra"
+  },
+  {
+    "id": 37,
+    "empresa": "PRT",
+    "setor": "Cadastro",
+    "atividade": "Lançar Master Cotações",
+    "responsavel": "Edilaine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 38,
+    "empresa": "PRT",
+    "setor": "Comex",
+    "atividade": "Emissão de Documentos",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Invoice, Packing List, Cert. Origem, Free Sale Certificate, entre outros."
+  },
+  {
+    "id": 39,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Memorando de Exportação",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 40,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Envio NF de Compra para Consystem",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 41,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Documento para Consystem: Relatorio de Faturamento e envio NF",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "NF de compra o JV envia para a Carla."
+  },
+  {
+    "id": 42,
+    "empresa": "PRT",
+    "setor": "Operacional Comex",
+    "atividade": "Envio NF de Despesas para Consystem",
+    "responsavel": "Janine",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 43,
+    "empresa": "PRT",
+    "setor": "Cadastro",
+    "atividade": "Master Fotos",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": "Incluir novos produtos e Manutenção"
+  },
+  {
+    "id": 44,
+    "empresa": "PRT",
+    "setor": "Fiscal",
+    "atividade": "Conferencia de NFs",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 45,
+    "empresa": "PRT",
+    "setor": "Fiscal",
+    "atividade": "SPED / Obrigações Fiscais",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 46,
+    "empresa": "PRT",
+    "setor": "Financeiro",
+    "atividade": "Conciliação Bancária",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "Mensal",
+    "observacao": ""
+  },
+  {
+    "id": 47,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Controle de Estoque",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 48,
+    "empresa": "PRT",
+    "setor": "Logistica",
+    "atividade": "Rastreamento de Cargas",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 49,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "Follow-up de Pedidos",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 50,
+    "empresa": "PRT",
+    "setor": "Qualidade",
+    "atividade": "Controle de Qualidade de Produtos",
+    "responsavel": "Hannan",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 51,
+    "empresa": "PRT",
+    "setor": "Projetos",
+    "atividade": "Gestão de Projetos Internos",
+    "responsavel": "Ricardo",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 52,
+    "empresa": "PRT",
+    "setor": "Juridico",
+    "atividade": "Revisão de Contratos",
+    "responsavel": "",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 53,
+    "empresa": "PRT",
+    "setor": "Vendas",
+    "atividade": "Relatório de Vendas Mensal",
+    "responsavel": "Edney",
+    "apoio": "",
+    "periodo": "Mensal",
+    "observacao": ""
+  },
+  {
+    "id": 54,
+    "empresa": "PRT",
+    "setor": "Comex",
+    "atividade": "Acompanhamento de Embarques",
+    "responsavel": "Nathalia",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 55,
+    "empresa": "PRT",
+    "setor": "Financeiro",
+    "atividade": "Controle de Câmbio",
+    "responsavel": "João Victor",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 56,
+    "empresa": "PRT",
+    "setor": "Marketing",
+    "atividade": "Gestão de Redes Sociais",
+    "responsavel": "",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  },
+  {
+    "id": 57,
+    "empresa": "PRT",
+    "setor": "Marketing",
+    "atividade": "Material Gráfico e Apresentações",
+    "responsavel": "",
+    "apoio": "",
+    "periodo": "",
+    "observacao": ""
+  }
+]

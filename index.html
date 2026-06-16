@@ -47,6 +47,17 @@ svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width:
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
+/* Error banner */
+#error-banner {
+  display: none; background: #fff3cd; border: 1px solid #ffc107; border-radius: var(--radius);
+  padding: 16px 20px; margin-bottom: 20px; color: #856404;
+}
+#error-banner strong { display: block; margin-bottom: 6px; font-size: 14px; }
+#error-banner code { display: block; font-size: 12px; background: rgba(0,0,0,.06); padding: 8px 10px; border-radius: 4px; margin: 8px 0; word-break: break-all; font-family: monospace; }
+#error-banner .err-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+#error-banner button { padding: 6px 14px; border-radius: 6px; border: 1px solid currentColor; background: transparent; cursor: pointer; font-size: 13px; font-weight: 500; color: #856404; font-family: var(--font); }
+#error-banner button:hover { background: rgba(0,0,0,.07); }
+
 #app { display: flex; min-height: 100vh; }
 
 .sidebar { width: 240px; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; bottom: 0; z-index: 100; }
@@ -202,6 +213,17 @@ textarea { resize: vertical; }
   </aside>
 
   <main class="main">
+    <!-- Banner de erro de conexão -->
+    <div id="error-banner">
+      <strong>⚠️ Erro ao conectar ao SharePoint</strong>
+      <code id="error-detail"></code>
+      <div id="error-hint"></div>
+      <div class="err-actions">
+        <button onclick="retryLoad()">↺ Tentar novamente</button>
+        <button onclick="document.getElementById('error-banner').style.display='none'">Fechar</button>
+      </div>
+    </div>
+
     <!-- ATIVIDADES -->
     <div id="view-atividades" class="view">
       <div class="page-header">
@@ -501,7 +523,10 @@ async function getDigest() {
     headers: { 'Accept': 'application/json;odata=nometadata', 'Content-Type': 'application/json' },
     credentials: 'include'
   });
-  if (!r.ok) throw new Error('Não foi possível obter o token do SharePoint.');
+  if (!r.ok) {
+    const txt = await r.text().catch(()=>'');
+    throw new Error(`contextinfo HTTP ${r.status} — ${txt.slice(0,200)}`);
+  }
   const d = await r.json();
   return d.FormDigestValue;
 }
@@ -513,7 +538,10 @@ async function spReadJson(filename) {
     credentials: 'include'
   });
   if (r.status === 404) return null;
-  if (!r.ok) throw new Error(`Erro ao ler ${filename}: ${r.status}`);
+  if (!r.ok) {
+    const txt = await r.text().catch(()=>'');
+    throw new Error(`Leitura de ${filename} → HTTP ${r.status}: ${txt.slice(0,200)}`);
+  }
   return await r.json();
 }
 
@@ -530,7 +558,10 @@ async function spWriteJson(filename, data) {
     credentials: 'include',
     body: JSON.stringify(data)
   });
-  if (!r.ok) throw new Error(`Erro ao salvar ${filename}: ${r.status}`);
+  if (!r.ok) {
+    const txt = await r.text().catch(()=>'');
+    throw new Error(`Gravação de ${filename} → HTTP ${r.status}: ${txt.slice(0,200)}`);
+  }
 }
 
 // ── Sincronização ─────────────────────────────────────────────────────────────
@@ -541,15 +572,40 @@ function setSyncStatus(status, label) {
   lbl.textContent = label;
 }
 
+function showErrorBanner(err) {
+  const isLocalFile = location.protocol === 'file:';
+  const isFetchFail = err.message === 'Failed to fetch';
+  const banner = document.getElementById('error-banner');
+  document.getElementById('error-detail').textContent = err.message;
+  let hint = '';
+  if (isLocalFile) {
+    hint = '🔴 Você está abrindo o arquivo localmente (C:\\...). Para funcionar, o arquivo deve ser aberto DENTRO do SharePoint, não do seu computador.';
+  } else if (isFetchFail) {
+    hint = '🔴 "Failed to fetch" geralmente indica que o arquivo não está sendo servido pelo SharePoint, ou há bloqueio de CORS. Certifique-se de acessar via URL do SharePoint.';
+  } else if (err.message.includes('401') || err.message.includes('403')) {
+    hint = '🔴 Erro de autenticação (401/403). Faça login no SharePoint e recarregue a página.';
+  } else if (err.message.includes('404')) {
+    hint = '🟡 Pasta não encontrada. Verifique se o caminho da pasta no SharePoint está correto.';
+  }
+  document.getElementById('error-hint').textContent = hint;
+  banner.style.display = 'block';
+}
+
 async function loadData() {
-  setLoadingMsg('Carregando atividades...');
+  setLoadingMsg('Conectando ao SharePoint...');
+  document.getElementById('error-banner').style.display = 'none';
   try {
+    setLoadingMsg('Verificando autenticação...');
+    // Testa conexão primeiro
+    await getDigest();
+
+    setLoadingMsg('Carregando atividades...');
     let [av, co] = await Promise.all([spReadJson(FILE_ATV), spReadJson(FILE_COL)]);
     let isNew = false;
 
     if (!av) {
       av = INITIAL_ATIVIDADES.map((x,i) => ({id:i+1,...x}));
-      setLoadingMsg('Criando base de dados inicial...');
+      setLoadingMsg('Criando base de dados inicial no SharePoint...');
       await spWriteJson(FILE_ATV, av);
       isNew = true;
     }
@@ -564,9 +620,16 @@ async function loadData() {
     if (isNew) toast('Base de dados criada no SharePoint!', 'success');
   } catch(err) {
     setSyncStatus('error', 'Erro de conexão');
-    toast('Erro ao conectar ao SharePoint: ' + err.message, 'error');
-    console.error(err);
+    console.error('[PRT] Erro SharePoint:', err);
+    showErrorBanner(err);
   }
+}
+
+async function retryLoad() {
+  document.getElementById('error-banner').style.display = 'none';
+  setSyncStatus('syncing', 'Reconectando...');
+  await loadData();
+  renderAtividades();
 }
 
 async function reloadData() {

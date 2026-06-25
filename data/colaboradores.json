@@ -54,5 +54,12 @@
     "setor": "Logistica",
     "cargo": "Auxiliar Logístico",
     "email": ""
+  },
+  {
+    "nome": "Nicolas",
+    "setor": "Operacional Comex",
+    "cargo": "Estagiário",
+    "email": "comex@paranatrading.com.br",
+    "id": 9
   }
 ]

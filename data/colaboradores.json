@@ -61,5 +61,12 @@
     "cargo": "Estagiário",
     "email": "comex@paranatrading.com.br",
     "id": 9
+  },
+  {
+    "nome": "Anderson Santos",
+    "setor": "Compras",
+    "cargo": "Comprador",
+    "email": "produtos@paranatrading.com.br",
+    "id": 10
   }
 ]
